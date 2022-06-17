@@ -12,19 +12,8 @@ public interface ScoreItemDao {
 	String COLUMN_ENG = "eng";
 	String COLUMN_MAT = "mat";
 	
-	List<ScoreItem> getAll();
-	
-	void create(ScoreItem scoreitem);
-	void delete(ScoreItem scoreitem);
-	void insert(ScoreItem scoreitem);
-	
-	void allView(ScoreItem scoreitem);
-	void add(ScoreItem scoreitem);
-	void update(ScoreItem scoreitem);
-	
-	
-	
-	
-
+	void create(ScoreItem scoreItem);
+	ScoreItem selectOne(int id);
+	List<ScoreItem> selectAll(int page, int countPerPage);	
 
 }
