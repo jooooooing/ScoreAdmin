@@ -20,7 +20,7 @@ public interface ScoreItemDao {
 
 	int selectFirstId();
 
-	int insertOne();
+	int insertOne(ScoreItem scoreItem);
 	
 	//수정
 	int updateOne(ScoreItem scoreItem);
