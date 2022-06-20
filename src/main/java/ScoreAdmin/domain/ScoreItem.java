@@ -23,6 +23,10 @@ public class ScoreItem {
 		this.mat = mat;
 	}
 
+	public ScoreItem() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getName() {
 		return name;
 	}

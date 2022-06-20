@@ -14,6 +14,12 @@ public interface ScoreItemDao {
 
 	// 조회
 	List<ScoreItem> selectAll(int startNum, int countPerPage);
+	
+	int selectTotalCount();
+	
+	ScoreItem selectId(int id);
+	
+	List<ScoreItem> selectName(String Name);
 
 	// 입력
 	int selectNewId();

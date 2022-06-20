@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import ScoreAdmin.dao.ScoreItemDao;
 import ScoreAdmin.dao.ScoreItemDaoImpl;
 import ScoreAdmin.domain.ScoreItem;
-import ScoreAdmin.dto.Pagination;
 
 class ScoreItemDaoTest {
 	
