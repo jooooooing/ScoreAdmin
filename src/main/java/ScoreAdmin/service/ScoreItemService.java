@@ -8,9 +8,27 @@ import ScoreAdmin.dto.Pagination;
 
 public interface ScoreItemService {
 	ScoreItemDao create(ScoreItem scoreItem);
-	ScoreItem selecOne(int id);
+
+	// 조회
 	List<ScoreItem> selectAll(int page, int countPerPage);
+
+	ScoreItem selectId(int id);
+
+	List<ScoreItem> selectName(String Name);
+
+	// 페이지네이션
 	Pagination getPagination(int currentPage, int countPerPage, int pageSize, int totalCount);
-	ScoreItemDao getScoreItemDao();
-	void setScoreItemDao(ScoreItemDao scoreItemDao);
+
+	// 입력
+	int selectNewId();
+
+	int selectFirstId();
+
+	int insertOne(ScoreItem scoreItem);
+
+	// 수정
+	int updateOne(ScoreItem scoreItem);
+
+	// 삭제
+	int deleteOne(int id);
 }

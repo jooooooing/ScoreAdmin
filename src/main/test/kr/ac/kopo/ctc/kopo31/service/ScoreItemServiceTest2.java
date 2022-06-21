@@ -81,63 +81,54 @@ class ScoreItemServiceTest2 {
 	
 	@Test
 	void testPagination6() {
-		Pagination p = scoreItemService.getPagination(1, 10, 30, 725);		// 현재 페이지, 페이지당 쪽수, 한 페이지 게시글 수, 전체 게시글 수
+		Pagination p = scoreItemService.getPagination(1, 15, 50, 325);		// 현재 페이지, 페이지당 쪽수, 한 페이지 게시글 수, 전체 게시글 수
 		assertEquals(p.getPpPage(), 1); //1 고정
 		assertEquals(p.getpPage(), 1); //전 페이지 첫번째 쪽
-		assertEquals(p.getnPage(), 11); //다음 페이지 첫번재 쪽
-		assertEquals(p.getNnPage(), 25); //끝페이지 전체 목록 / 1페이지 목록+나머지(+1)
+		assertEquals(p.getnPage(), 7); //다음 페이지 첫번재 쪽
+		assertEquals(p.getNnPage(), 7); //끝페이지 전체 목록 / 1페이지 목록+나머지(+1)
 		assertEquals(p.getcPage(), 1); //현재 페이지
 	}
 	
 	@Test
 	void testPagination7() {
-		Pagination p = scoreItemService.getPagination(16, 10, 30, 725);		// 현재 페이지, 페이지당 쪽수, 한 페이지 게시글 수, 전체 게시글 수
+		Pagination p = scoreItemService.getPagination(3, 15, 50, 325);		// 현재 페이지, 페이지당 쪽수, 한 페이지 게시글 수, 전체 게시글 수
 		assertEquals(p.getPpPage(), 1); //1 고정
 		assertEquals(p.getpPage(), 1); //전 페이지 첫번째 쪽
-		assertEquals(p.getnPage(), 21); //다음 페이지 첫번재 쪽
-		assertEquals(p.getNnPage(), 25); //끝페이지 전체 목록 / 1페이지 목록+나머지(+1)
-		assertEquals(p.getcPage(), 16); //현재 페이지
+		assertEquals(p.getnPage(), 7); //다음 페이지 첫번재 쪽
+		assertEquals(p.getNnPage(), 7); //끝페이지 전체 목록 / 1페이지 목록+나머지(+1)
+		assertEquals(p.getcPage(), 3); //현재 페이지
 	}
 	
 	@Test
 	void testPagination8() {
-		Pagination p = scoreItemService.getPagination(25, 10, 30, 725);		// 현재 페이지, 페이지당 쪽수, 한 페이지 게시글 수, 전체 게시글 수
+		Pagination p = scoreItemService.getPagination(7, 15, 50, 325);		// 현재 페이지, 페이지당 쪽수, 한 페이지 게시글 수, 전체 게시글 수
 		assertEquals(p.getPpPage(), 1); //1 고정
-		assertEquals(p.getpPage(), 11); //전 페이지 첫번째 쪽
-		assertEquals(p.getnPage(), 25); //다음 페이지 첫번재 쪽
-		assertEquals(p.getNnPage(), 25); //끝페이지 전체 목록 / 1페이지 목록+나머지(+1)
-		assertEquals(p.getcPage(), 25); //현재 페이지
+		assertEquals(p.getpPage(), 1); //전 페이지 첫번째 쪽
+		assertEquals(p.getnPage(), 7); //다음 페이지 첫번재 쪽
+		assertEquals(p.getNnPage(), 7); //끝페이지 전체 목록 / 1페이지 목록+나머지(+1)
+		assertEquals(p.getcPage(), 7); //현재 페이지
 	}
 	
 	@Test
 	void testPagination9() {
-		Pagination p = scoreItemService.getPagination(-100, 10, 30, 725);		// 현재 페이지, 페이지당 쪽수, 한 페이지 게시글 수, 전체 게시글 수
+		Pagination p = scoreItemService.getPagination(-100, 15, 50, 325);		// 현재 페이지, 페이지당 쪽수, 한 페이지 게시글 수, 전체 게시글 수
 		assertEquals(p.getPpPage(), 1); //1 고정
 		assertEquals(p.getpPage(), 1); //전 페이지 첫번째 쪽
-		assertEquals(p.getnPage(), 11); //다음 페이지 첫번재 쪽
-		assertEquals(p.getNnPage(), 25); //끝페이지 전체 목록 / 1페이지 목록+나머지(+1)
+		assertEquals(p.getnPage(), 7); //다음 페이지 첫번재 쪽
+		assertEquals(p.getNnPage(), 7); //끝페이지 전체 목록 / 1페이지 목록+나머지(+1)
 		assertEquals(p.getcPage(), 1); //현재 페이지
 	}
 	
 	@Test
 	void testPagination10() {
-		Pagination p = scoreItemService.getPagination(100, 10, 30, 725);		// 현재 페이지, 페이지당 쪽수, 한 페이지 게시글 수, 전체 게시글 수
-		assertEquals(p.getPpPage(), 1); //1 고정
-		assertEquals(p.getpPage(), 11); //전 페이지 첫번째 쪽
-		assertEquals(p.getnPage(), 25); //다음 페이지 첫번재 쪽
-		assertEquals(p.getNnPage(), 25); //끝페이지 전체 목록 / 1페이지 목록+나머지(+1)
-		assertEquals(p.getcPage(), 25); //현재 페이지
-	}
-	
-	
-	@Test
-	void testPagination11() {
-		Pagination p = scoreItemService.getPagination(1, 10, 30, 0);		// 현재 페이지, 페이지당 쪽수, 한 페이지 게시글 수, 전체 게시글 수
+		Pagination p = scoreItemService.getPagination(100, 15, 50, 325);		// 현재 페이지, 페이지당 쪽수, 한 페이지 게시글 수, 전체 게시글 수
 		assertEquals(p.getPpPage(), 1); //1 고정
 		assertEquals(p.getpPage(), 1); //전 페이지 첫번째 쪽
-		assertEquals(p.getnPage(), 1); //다음 페이지 첫번재 쪽
-		assertEquals(p.getNnPage(), 1); //끝페이지 전체 목록 / 1페이지 목록+나머지(+1)
-		assertEquals(p.getcPage(), 1); //현재 페이지
+		assertEquals(p.getnPage(), 7); //다음 페이지 첫번재 쪽
+		assertEquals(p.getNnPage(), 7); //끝페이지 전체 목록 / 1페이지 목록+나머지(+1)
+		assertEquals(p.getcPage(), 7); //현재 페이지
 	}
+	
+
 
 }

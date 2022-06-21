@@ -12,7 +12,8 @@ import java.util.List;
 import ScoreAdmin.domain.ScoreItem;
 
 public class ScoreItemDaoImpl implements ScoreItemDao {
-
+	
+	//클래스 시작 시 드라이버 로드
 	public ScoreItemDaoImpl() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -26,9 +27,12 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 		// TODO Auto-generated method stub
 		List<ScoreItem> results = new ArrayList<>();
 		String sql = "select *, kor+eng+mat as sum, (kor+eng+mat)/3 as ave, (select count(*)+1 from examtable4 as a where (a.kor+a.eng+a.mat) > (b.kor+b.eng+b.mat)) "
-				+ "as ranking from examtable4 as b limit 0, 10";
+				+ "as ranking from examtable4 as b limit ?, ?";
 		try (Connection conn = DriverManager.getConnection("jdbc:mysql://192.168.23.102:3306/kopoctc", "root",
-				"koposw31"); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+				"koposw31"); PreparedStatement pstmt = conn.prepareStatement(sql);) {
+			pstmt.setInt(1, startNum);
+			pstmt.setInt(2, countPerPage);
+		try (ResultSet rs = pstmt.executeQuery();) {
 			while (rs.next()) {
 				String name = rs.getString(COLUMN_NAME);
 				int studentid = rs.getInt(COLUMN_ID);
@@ -45,12 +49,13 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 
 				results.add(scoreItem);
 			}
-
-		} catch (SQLException e) {
-			throw new IllegalStateException("DB연결 실패" + e.getMessage());
 		}
 
-		return results;
+	}catch(Exception e) {
+		throw new IllegalStateException("DB연결 실패" + e.getMessage());
+	}
+
+	return results;
 	}
 
 	@Override
@@ -74,7 +79,7 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 
 	@Override
 	public ScoreItem selectId(int id) {
-		String sql = "select count * from examtable4 where studentid=?";
+		String sql = "select * from examtable4 where studentid=?";
 		ScoreItem scoreItem = new ScoreItem();
 
 		try (Connection conn = DriverManager.getConnection("jdbc:mysql://192.168.23.102:3306/kopoctc", "root",
@@ -95,20 +100,21 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new IllegalStateException("DB 연결 실패" + e.getMessage());
+			e.printStackTrace();
+			// throw new IllegalStateException("DB 연결 실패" + e.getMessage());
 		}
 
 		return scoreItem;
 	}
 
 	@Override
-	public List<ScoreItem> selectName(String Name) {
-		String sql = "select count * from examtable4 where name=?";
-		List<ScoreItem> ScoreItems = new ArrayList<ScoreItem>();
+	public List<ScoreItem> selectName(String name) {
+		String sql = "select * from examtable4 where name=?";
+		List<ScoreItem> scoreItems = new ArrayList<ScoreItem>();
 
 		try (Connection conn = DriverManager.getConnection("jdbc:mysql://192.168.23.102:3306/kopoctc", "root",
 				"koposw31"); PreparedStatement pstmt = conn.prepareStatement(sql);) {
-			pstmt.setString(1, Name);
+			pstmt.setString(1, name);
 			try (ResultSet rset = pstmt.executeQuery();) {
 				while (rset.next()) {
 					ScoreItem scoreItem = new ScoreItem();
@@ -117,18 +123,21 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 					scoreItem.setKor(rset.getInt("kor"));
 					scoreItem.setEng(rset.getInt("eng"));
 					scoreItem.setMat(rset.getInt("mat"));
+
+					scoreItems.add(scoreItem);
 				}
 			}
+//			System.out.println(scoreItems);
 		} catch (Exception e) {
 			throw new IllegalStateException("DB 연결 실패" + e.getMessage());
 		}
 
-		return ScoreItems;
+		return scoreItems;
 	}
 
 	@Override
 	public int selectNewId() {
-		String sql = "select studentid+1 from examtable4 where (studentid+1) not in (select studentid from examtalbe4)";
+		String sql = "select studentid+1 from examtable4 where (studentid+1) not in (select studentid from examtable4)";
 		int newId = 0;
 
 		try (Connection conn = DriverManager.getConnection("jdbc:mysql://192.168.23.102:3306/kopoctc", "root",
@@ -138,7 +147,7 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 				newId = rset.getInt(1);
 			}
 		} catch (Exception e) {
-			throw new IllegalStateException("DB 연결 실패" + e.getMessage());
+			throw new IllegalStateException("DB 연결 실패");
 		}
 
 		return newId;
@@ -146,7 +155,7 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 
 	@Override
 	public int selectFirstId() {
-		String sql = "select studentid from examtable limit 1)";
+		String sql = "select studentid from examtable4 limit 1";
 		int firstId = 0;
 
 		try (Connection conn = DriverManager.getConnection("jdbc:mysql://192.168.23.102:3306/kopoctc", "root",
@@ -155,6 +164,7 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 				rset.next();
 				firstId = rset.getInt(1);
 			}
+//			System.out.println(firstId);
 		} catch (Exception e) {
 			throw new IllegalStateException("DB 연결 실패" + e.getMessage());
 		}
@@ -220,6 +230,23 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 		}
 
 		return result;
+	}
+
+	@Override
+	public int dropTable() {
+		// TODO Auto-generated method stub
+		String sql = "drop table examtable4";
+		int result = 0;
+		
+		try (Connection conn = DriverManager.getConnection("jdbc:mysql://192.168.23.102:3306/kopoctc", "root",
+				"koposw31"); PreparedStatement pstmt = conn.prepareStatement(sql);) {
+			result = pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			throw new IllegalStateException("db 연결 실패" + e.getMessage());
+		}
+		
+		return 0;
 	}
 
 }

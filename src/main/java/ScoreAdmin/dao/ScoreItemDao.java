@@ -4,17 +4,20 @@ import java.util.List;
 
 import ScoreAdmin.domain.ScoreItem;
 
-public interface ScoreItemDao {
+public interface ScoreItemDao  {
 	String TABLE_NAME = "examtable4";
 	String COLUMN_NAME = "name";
 	String COLUMN_ID = "studentid";
 	String COLUMN_KOR = "kor";
 	String COLUMN_ENG = "eng";
-	String COLUMN_MAT = "mat";
-
-	// 조회
+	String COLUMN_MAT = "mat";	
+	
+	
+	// 전체조회
 	List<ScoreItem> selectAll(int startNum, int countPerPage);
 	
+	
+	// 상세조회
 	int selectTotalCount();
 	
 	ScoreItem selectId(int id);
@@ -33,5 +36,7 @@ public interface ScoreItemDao {
 
 	// 삭제
 	int deleteOne(int id);
+	
+	int dropTable();
 
 }

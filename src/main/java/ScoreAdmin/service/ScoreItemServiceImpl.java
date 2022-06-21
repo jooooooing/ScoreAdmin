@@ -51,7 +51,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 		/*
 		 * if (countPerPage <= 1) { countPerPage = 1; }
 		 */
-		
+
 		if (totalCount == 0) {
 
 			firstPage = 1;
@@ -80,27 +80,52 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 	}
 
 	@Override
-	public ScoreItem selecOne(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<ScoreItem> selectAll(int page, int countPerPage) {
 		// TODO Auto-generated method stub
-		return null;
+		return scoreItemDao.selectAll(page, countPerPage);
 	}
 
 	@Override
-	public ScoreItemDao getScoreItemDao() {
+	public ScoreItem selectId(int id) {
+		// TODO Auto-generated method stub
+		return scoreItemDao.selectId(id);
+
+	}
+
+	@Override
+	public List<ScoreItem> selectName(String Name) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void setScoreItemDao(ScoreItemDao scoreItemDao) {
+	public int selectNewId() {
 		// TODO Auto-generated method stub
+		return scoreItemDao.selectNewId();
+	}
 
+	@Override
+	public int selectFirstId() {
+		// TODO Auto-generated method stub
+		return scoreItemDao.selectFirstId();
+	}
+
+	@Override
+	public int insertOne(ScoreItem scoreItem) {
+		// TODO Auto-generated method stub
+		return scoreItemDao.insertOne(scoreItem);
+	}
+
+	@Override
+	public int updateOne(ScoreItem scoreItem) {
+		// TODO Auto-generated method stub
+		return scoreItemDao.updateOne(scoreItem);
+	}
+
+	@Override
+	public int deleteOne(int id) {
+		// TODO Auto-generated method stub
+		return scoreItemDao.deleteOne(id);
 	}
 
 }
