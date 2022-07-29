@@ -9,15 +9,15 @@ public class ScoreItem {
 	//5. 필요하면 equals / hashCode 재정의(오버라이드)
 	
 	private String name;
-	private int studentid;
+	private int studentId;
 	private int kor;
 	private int eng;
 	private int mat;
 	
-	public ScoreItem(String name, int studentid, int kor, int eng, int mat) {
+	public ScoreItem(String name, int studentId, int kor, int eng, int mat) {
 		super();
 		this.name = name;
-		this.studentid = studentid;
+		this.studentId = studentId;
 		this.kor = kor;
 		this.eng = eng;
 		this.mat = mat;
@@ -36,11 +36,11 @@ public class ScoreItem {
 	}
 
 	public int getStudentid() {
-		return studentid;
+		return studentId;
 	}
 
-	public void setStudentid(int studentid) {
-		this.studentid = studentid;
+	public void setStudentid(int studentId) {
+		this.studentId = studentId;
 	}
 
 	public int getKor() {
@@ -69,7 +69,7 @@ public class ScoreItem {
 
 	@Override
 	public String toString() {
-		return "ScoreItem [name=" + name + ", studentid=" + studentid + ", kor=" + kor + ", eng=" + eng + ", mat=" + mat
+		return "ScoreItem [name=" + name + ", studentid=" + studentId + ", kor=" + kor + ", eng=" + eng + ", mat=" + mat
 				+ "]";
 	}
 	

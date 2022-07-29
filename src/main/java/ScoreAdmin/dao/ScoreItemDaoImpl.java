@@ -35,14 +35,14 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 		try (ResultSet rs = pstmt.executeQuery();) {
 			while (rs.next()) {
 				String name = rs.getString(COLUMN_NAME);
-				int studentid = rs.getInt(COLUMN_ID);
+				int studentId = rs.getInt(COLUMN_ID);
 				int kor = rs.getInt(COLUMN_KOR);
 				int eng = rs.getInt(COLUMN_ENG);
 				int mat = rs.getInt(COLUMN_MAT);
 
-				ScoreItem scoreItem = new ScoreItem(name, studentid, kor, eng, mat);
+				ScoreItem scoreItem = new ScoreItem(name, studentId, kor, eng, mat);
 				scoreItem.setName(name);
-				scoreItem.setStudentid(studentid);
+				scoreItem.setStudentid(studentId);
 				scoreItem.setKor(kor);
 				scoreItem.setEng(eng);
 				scoreItem.setMat(mat);

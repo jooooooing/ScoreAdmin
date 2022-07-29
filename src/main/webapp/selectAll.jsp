@@ -1,6 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="ScoreAdmin.dto.Pagination"%>
 <%@page import="ScoreAdmin.domain.ScoreItem"%>
+<%@page import="ScoreAdmin.dao.ScoreItemDao"%>
+<%@page import="ScoreAdmin.dao.ScoreItemDaoImpl"%>
+
 <%@page import="ScoreAdmin.service.ScoreItemServiceImpl"%>
 <%@page import="ScoreAdmin.service.ScoreItemService"%>
 <%@page import="java.util.List"%>
@@ -16,11 +19,24 @@
 <body>
 	<jsp:include page="menu.jsp"></jsp:include>
 	<%
-		ScoreItemDao scoreItemDao = new ScoreItemDaoImpl();
-		ScoreItemService scoreItemService = new ScoreItemServiceImpl();
+	ScoreItemDao scoreItemDao = new ScoreItemDaoImpl();
+	ScoreItemService scoreItemService = new ScoreItemServiceImpl();
 	
-		List<ScoreItem> scoreItems = scoreItemService.selectAll(request.getParameter("cPage"));
-		Pagination pagination = scoreItemService.getPagination(currentPage, countPerPage, pageSize, totalCount);	
+	String cPage = request.getParameter("cPage");
+	if (cPage == null || "null".equals(cPage)) {
+	    cPage = "1";
+	  }
+	
+	int cPageInt = Integer.parseInt(cPage);
+	int totalCount = scoreItemDao.selectTotalCount();
+	
+	
+	List<ScoreItem> scoreItems = scoreItemDao.selectAll(cPageInt, 10);
+	pageContext.setAttribute("scoreItems", scoreItems);
+	
+	
+	Pagination pagination = scoreItemService.getPagination(cPageInt, 10, 10, totalCount);
+	pageContext.setAttribute("pagination", pagination);	
 	%>
 	
 	<jsp:include page="menu.jsp"></jsp:include>
